@@ -1,0 +1,46 @@
+---
+- name: Ensure that PHP PPA is added
+  apt_repository: repo=ppa:ondrej/php state=present
+  become: yes
+
+- name: Install PHP packages
+  apt: name={{ item }} state=latest update_cache=yes
+  with_items:
+    - php7.1
+    - php7.1-curl
+    - php7.1-gd
+    - php7.1-fpm
+    - php7.1-mbstring
+    - php7.1-mysql
+    - php7.1-xml
+    - php7.1-intl
+  become: yes
+
+- name: Set user and group of PHP-FPM process
+  ini_file:
+    dest: /etc/php/7.1/fpm/pool.d/www.conf
+    section: www
+    option: "{{ item }}"
+    value: ubuntu
+  with_items:
+    - user
+    - group
+  become: yes
+  notify: restart PHP-FPM
+
+- name: Set PHP timezone to {{ timezone }}
+  ini_file:
+    dest: /etc/php/7.1/fpm/php.ini
+    section: Date
+    option: date.timezone
+    value: "{{ timezone }}"
+  become: yes
+  notify: restart PHP-FPM
+
+- name: Set permissions on socket - mode
+  lineinfile:
+    dest: /etc/php/7.1/fpm/pool.d/www.conf
+    line: 'env[CHARSET] = UTF-8'
+    state: present
+  become: yes
+  notify: restart PHP-FPM

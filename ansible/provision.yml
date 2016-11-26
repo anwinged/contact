@@ -1,0 +1,15 @@
+---
+- hosts: all
+
+  vars:
+    app:
+      name: contact
+
+    project_root: /vagrant
+
+    timezone: UTC
+
+  roles:
+    - yatesr.timezone
+    - php
+    - nginx
