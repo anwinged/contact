@@ -1,0 +1,12 @@
+---
+- name: Add key
+  apt_key: id=0C49F3730359A14518585931BC711F9BA15703C6 keyserver=keyserver.ubuntu.com
+  become: yes
+
+- name: Add repository
+  apt_repository: repo='deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse' state=present
+  become: yes
+
+- name: Install packages
+  apt: pkg=mongodb-org state=present
+  become: yes

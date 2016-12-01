@@ -13,3 +13,4 @@
     - yatesr.timezone
     - php
     - nginx
+    - mongodb

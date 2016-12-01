@@ -14,6 +14,7 @@
     - php7.1-mysql
     - php7.1-xml
     - php7.1-intl
+    - php7.1-mongodb
   become: yes
 
 - name: Set user and group of PHP-FPM process
