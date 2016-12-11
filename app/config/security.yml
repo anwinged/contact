@@ -3,14 +3,14 @@
 security:
 
     providers:
-        our_db_provider:
-            entity:
-                class: AppBundle:User
+        my_security_provider:
+            mongodb:
+                class: AppBundle\Document\User
                 property: email
 
 
     encoders:
-        AppBundle\Entity\User:
+        AppBundle\Document\User:
             algorithm: bcrypt
 
 
@@ -22,7 +22,7 @@ security:
 
         main:
             anonymous: ~
-            provider: our_db_provider
+            provider: my_security_provider
             form_login:
                 login_path: login
                 check_path: login

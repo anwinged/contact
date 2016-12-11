@@ -7,5 +7,5 @@ services:
   app.user_service:
     class: AppBundle\Service\UserService
     arguments:
-      - '@doctrine.orm.entity_manager'
+      - '@doctrine.odm.mongodb.document_manager'
       - '@security.password_encoder'

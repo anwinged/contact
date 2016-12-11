@@ -1,34 +1,32 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace AppBundle\Document;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="user")
+ * @MongoDB\Document
  */
 class User implements UserInterface, \Serializable
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @MongoDB\Id
      *
      * @var int
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @MongoDB\Field(type="string")
+     * @MongoDB\UniqueIndex()
      *
      * @var string
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=64, unique=true)
+     * @MongoDB\Field(type="string")
      *
      * @var string
      */
@@ -69,7 +67,7 @@ class User implements UserInterface, \Serializable
     /**
      * String representation of object.
      *
-     * @link http://php.net/manual/en/serializable.serialize.php
+     * @see http://php.net/manual/en/serializable.serialize.php
      *
      * @return string the string representation of the object or null
      *
@@ -87,7 +85,7 @@ class User implements UserInterface, \Serializable
     /**
      * Constructs the object.
      *
-     * @link http://php.net/manual/en/serializable.unserialize.php
+     * @see http://php.net/manual/en/serializable.unserialize.php
      *
      * @param string $serialized <p>
      *                           The string representation of the object.

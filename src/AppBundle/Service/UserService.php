@@ -2,16 +2,16 @@
 
 namespace AppBundle\Service;
 
-use AppBundle\Entity\User;
-use Doctrine\ORM\EntityManagerInterface;
+use AppBundle\Document\User;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserService
 {
     /**
-     * @var EntityManagerInterface
+     * @var ObjectManager
      */
-    private $em;
+    private $om;
 
     /**
      * @var UserPasswordEncoderInterface
@@ -19,14 +19,14 @@ class UserService
     private $passwordEncoder;
 
     /**
-     * @param EntityManagerInterface       $em
+     * @param ObjectManager                $om
      * @param UserPasswordEncoderInterface $passwordEncoder
      */
     public function __construct(
-        EntityManagerInterface $em,
+        ObjectManager $om,
         UserPasswordEncoderInterface $passwordEncoder
     ) {
-        $this->em = $em;
+        $this->om = $om;
         $this->passwordEncoder = $passwordEncoder;
     }
 
@@ -45,8 +45,8 @@ class UserService
         $encoded = $this->passwordEncoder->encodePassword($user, $plainPassword);
         $user->setPassword($encoded);
 
-        $this->em->persist($user);
-        $this->em->flush();
+        $this->om->persist($user);
+        $this->om->flush();
 
         return $user;
     }
