@@ -1,0 +1,8 @@
+services:
+
+  app.handler.email_handler:
+    class: AppBundle\Handler\EmailHandler
+    arguments:
+      - '@mailer'
+    tags:
+      - { name: app.handler, alias: email_handler }

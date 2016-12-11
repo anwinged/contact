@@ -30,7 +30,8 @@
         "incenteev/composer-parameter-handler": "^2.0",
         "alcaeus/mongo-php-adapter": "^1.0",
         "doctrine/mongodb-odm": "^1.1",
-        "doctrine/mongodb-odm-bundle": "^3.2"
+        "doctrine/mongodb-odm-bundle": "^3.2",
+        "myclabs/php-enum": "^1.5"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

@@ -1,0 +1,47 @@
+<?php
+
+namespace AppBundle\Service;
+
+use AppBundle\Document\Catcher;
+use AppBundle\Handler\HandlerInterface;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
+
+class CatcherFormBuilder
+{
+    /**
+     * @var FormFactoryInterface
+     */
+    private $formFactory;
+
+    public function __construct(FormFactoryInterface $formFactory)
+    {
+        $this->formFactory = $formFactory;
+    }
+
+    /**
+     * @param Catcher          $catcher
+     * @param HandlerInterface $handler
+     *
+     * @return FormInterface
+     */
+    public function buildForm(Catcher $catcher, HandlerInterface $handler)
+    {
+        $formBuilder = $this->formFactory
+            ->createBuilder(FormType::class, $catcher)
+            ->add('target', TextType::class)
+        ;
+
+        foreach ($handler->getConfiguration() as $param) {
+            $name = sprintf('handlerConfiguration_%s', $param);
+            $formBuilder->add($name, TextType::class, [
+                'label' => $param,
+                'property_path' => sprintf('handlerConfiguration[%s]', $param),
+            ]);
+        }
+
+        return $formBuilder->getForm();
+    }
+}

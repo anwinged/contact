@@ -2,7 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Document\Hit;
 use AppBundle\Document\Project;
+use AppBundle\Repository\HitRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -55,8 +57,18 @@ class ProjectController extends Controller
      */
     public function viewAction(Project $project)
     {
+        $handlerManager = $this->get('app.handler_manager');
+
+        /** @var HitRepository $hitRepository */
+        $hitRepository = $this->get('doctrine_mongodb')
+            ->getManager()
+            ->getRepository(Hit::class)
+        ;
+
         return $this->render('project/view.html.twig', [
             'project' => $project,
+            'handlers' => $handlerManager->getHandlers(),
+            'newestHits' => $hitRepository->findNewest($project),
         ]);
     }
 }

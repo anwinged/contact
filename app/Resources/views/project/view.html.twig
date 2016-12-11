@@ -2,6 +2,43 @@
 
 {% block body %}
 
-    <h2>{{ project.name }}</h2>
+  <h2>{{ project.name }}</h2>
+
+  <h3>Handlers</h3>
+
+  <ul>
+    {% for alias, handler in handlers %}
+      <li>
+        <a href="{{ path('catcher_create', {'id': project.id, 'alias': alias}) }}">{{ handler.caption }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <h3>Catchers</h3>
+  <ul>
+    {% for catcher in project.catchers %}
+      <li>
+        {{ catcher.target }}
+      </li>
+    {% endfor %}
+  </ul>
+
+  <h3>Hits</h3>
+  <table border="1px">
+    <thead>
+      <td>Id</td>
+      <td>Time</td>
+      <td>State</td>
+    </thead>
+    <tbody>
+      {% for hit in newestHits %}
+        <tr>
+          <td>{{ hit.id }}</td>
+          <td>{{ hit.time|date('Y-m-d H:i:s') }}</td>
+          <td>{{ hit.state }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 
 {% endblock %}
