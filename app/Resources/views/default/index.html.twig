@@ -3,5 +3,20 @@
 {% block body %}
     <h1>Hello, {{ user.email }}</h1>
 
+    <p>Your id: {{ user.id }}</p>
+
     <p><a href="{{ path('logout') }}">Logout</a></p>
+
+    <hr>
+
+    <h2>Projects:</h2>
+    <p><a href="{{ path('project_create') }}">Create new</a></p>
+
+    <ul>
+        {% for project in user.projects %}
+            <li>
+                <a href="{{ path('project_view', {'id': project.id}) }}">{{ project.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}

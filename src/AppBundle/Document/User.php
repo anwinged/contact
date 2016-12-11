@@ -3,6 +3,7 @@
 namespace AppBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Doctrine\ODM\MongoDB\PersistentCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -13,7 +14,7 @@ class User implements UserInterface, \Serializable
     /**
      * @MongoDB\Id
      *
-     * @var int
+     * @var string
      */
     private $id;
 
@@ -33,17 +34,24 @@ class User implements UserInterface, \Serializable
     private $password;
 
     /**
-     * @return int
+     * @MongoDB\ReferenceMany(targetDocument="Project", mappedBy="user")
+     *
+     * @var PersistentCollection
      */
-    public function getId(): int
+    private $projects;
+
+    /**
+     * @return string
+     */
+    public function getId(): string
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
+     * @param string $id
      */
-    public function setId(int $id)
+    public function setId(string $id)
     {
         $this->id = $id;
     }
@@ -173,5 +181,21 @@ class User implements UserInterface, \Serializable
      */
     public function eraseCredentials()
     {
+    }
+
+    /**
+     * @return PersistentCollection
+     */
+    public function getProjects(): PersistentCollection
+    {
+        return $this->projects;
+    }
+
+    /**
+     * @param PersistentCollection $projects
+     */
+    public function setProjects(PersistentCollection $projects)
+    {
+        $this->projects = $projects;
     }
 }

@@ -9,3 +9,16 @@ services:
     arguments:
       - '@doctrine.odm.mongodb.document_manager'
       - '@security.password_encoder'
+
+  app.voter.project:
+      class: AppBundle\Security\ProjectVoter
+      tags:
+          - { name: security.voter }
+      public: false
+
+  doctrine_mongo_db_param_converter:
+    class: Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DoctrineParamConverter
+    arguments:
+      - '@doctrine_mongodb'
+    tags:
+      - { name: request.param_converter, converter: doctrine.odm }
