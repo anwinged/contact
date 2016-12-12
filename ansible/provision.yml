@@ -4,10 +4,12 @@
   vars:
     app:
       name: contact
-
     project_root: /vagrant
-
     timezone: UTC
+
+  pre_tasks:
+    - name: Install build essential
+      apt: package=build-essential state=latest
 
   roles:
     - yatesr.timezone
@@ -15,3 +17,4 @@
     - nginx
     - mongodb
     - geerlingguy.composer
+    - geerlingguy.mailhog

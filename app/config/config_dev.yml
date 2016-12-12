@@ -29,8 +29,3 @@ monolog:
         #chromephp:
         #    type:   chromephp
         #    level:  info
-
-swiftmailer:
-    spool:
-        type: file
-        path: '%kernel.cache_dir%/mailer/spool'
