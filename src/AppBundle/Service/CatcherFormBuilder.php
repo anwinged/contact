@@ -34,11 +34,12 @@ class CatcherFormBuilder
             ->add('target', TextType::class)
         ;
 
-        foreach ($handler->getConfiguration() as $param) {
-            $name = sprintf('handlerConfiguration_%s', $param);
-            $formBuilder->add($name, TextType::class, [
-                'label' => $param,
-                'property_path' => sprintf('handlerConfiguration[%s]', $param),
+        foreach ($handler->getConfiguration() as $name => $params) {
+            $fullName = sprintf('handlerConfiguration_%s', $name);
+            $type = $params['type'] ?? TextType::class;
+            $formBuilder->add($fullName, $type, [
+                'label' => $params['label'] ?? $name,
+                'property_path' => sprintf('handlerConfiguration[%s]', $name),
             ]);
         }
 

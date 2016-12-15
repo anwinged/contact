@@ -26,9 +26,12 @@
   <h3>Hits</h3>
   <table border="1px">
     <thead>
-      <td>Id</td>
-      <td>Time</td>
-      <td>State</td>
+      <tr>
+        <th>Id</th>
+        <th>Time</th>
+        <th>State</th>
+        <th>Data</th>
+      </tr>
     </thead>
     <tbody>
       {% for hit in newestHits %}
@@ -36,6 +39,7 @@
           <td>{{ hit.id }}</td>
           <td>{{ hit.time|date('Y-m-d H:i:s') }}</td>
           <td>{{ hit.state }}</td>
+          <td>{{ hit.data|json_encode }}</td>
         </tr>
       {% endfor %}
     </tbody>

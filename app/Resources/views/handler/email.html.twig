@@ -1,0 +1,23 @@
+<html>
+<head>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+    th, td {
+      text-align: left;
+      padding: 4px 8px;
+    }
+  </style>
+</head>
+<body>
+  <table>
+    {% for key, value in data %}
+      <tr>
+        <th>{{ key }}:</th>
+        <td>{{ value }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

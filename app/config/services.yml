@@ -4,7 +4,7 @@ imports:
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/service_container.html
 parameters:
-#    parameter_name: value
+  handler_email: 'contact@example.com'
 
 services:
   app.user_service:
@@ -23,6 +23,7 @@ services:
     arguments:
       - '@doctrine.odm.mongodb.document_manager'
       - '@app.handler_manager'
+      - '@logger'
 
   app.handler_manager:
     class: AppBundle\Service\HandlerManager
@@ -30,7 +31,7 @@ services:
   app.voter.project:
       class: AppBundle\Security\ProjectVoter
       tags:
-          - { name: security.voter }
+        - { name: security.voter }
       public: false
 
   doctrine_mongo_db_param_converter:

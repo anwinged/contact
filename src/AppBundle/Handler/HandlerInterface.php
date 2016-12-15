@@ -2,7 +2,7 @@
 
 namespace AppBundle\Handler;
 
-use AppBundle\Document\Hit;
+use AppBundle\Document\Project;
 
 interface HandlerInterface
 {
@@ -22,8 +22,9 @@ interface HandlerInterface
     public function getConfiguration(): array;
 
     /**
-     * @param Hit   $hit
-     * @param array $configuration
+     * @param Project $project
+     * @param array   $data
+     * @param array   $configuration
      */
-    public function handle(Hit $hit, array $configuration): void;
+    public function handle(Project $project, array $data, array $configuration): void;
 }
