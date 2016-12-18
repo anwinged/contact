@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
 
+{# @var App\Document\Project project #}
+{# @var App\Document\Catcher catcher #}
+
 {% block body %}
 
   <h2>{{ project.name }}</h2>
@@ -9,7 +12,9 @@
   <ul>
     {% for alias, handler in handlers %}
       <li>
-        <a href="{{ path('catcher_create', {'id': project.id, 'alias': alias}) }}">{{ handler.caption }}</a>
+        <a href="{{ path('catcher_create', {'id': project.id, 'alias': alias}) }}">
+          Create {{ handler.caption|lower }} catcher
+        </a>
       </li>
     {% endfor %}
   </ul>
@@ -18,7 +23,12 @@
   <ul>
     {% for catcher in project.catchers %}
       <li>
-        {{ catcher.target }}
+        {{ catcher.target }} ({{ catcher.handlerAlias }}, {{ catcher.handlerCOnfiguration|json_encode }})
+        <br>
+        <a href="{{ path('catcher_edit', {'id': catcher.id}) }}">Edit</a>
+        <form action="{{ path('catcher_delete', {'id': catcher.id}) }}" method="post">
+          <button type="submit">Delete</button>
+        </form>
       </li>
     {% endfor %}
   </ul>

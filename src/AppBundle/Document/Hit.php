@@ -6,7 +6,6 @@ use AppBundle\Enum\HitState;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
-use Doctrine\ORM\PersistentCollection;
 
 /**
  * @MongoDB\Document(repositoryClass="AppBundle\Repository\HitRepository")

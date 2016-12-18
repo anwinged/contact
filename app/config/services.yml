@@ -34,6 +34,12 @@ services:
         - { name: security.voter }
       public: false
 
+  app.voter.catcher:
+      class: AppBundle\Security\CatcherVoter
+      tags:
+        - { name: security.voter }
+      public: false
+
   doctrine_mongo_db_param_converter:
     class: Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DoctrineParamConverter
     arguments:
