@@ -2,7 +2,7 @@
 
 namespace AppBundle\Handler;
 
-use AppBundle\Document\Project;
+use AppBundle\Document\Hit;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class EmailHandler implements HandlerInterface
@@ -35,16 +35,18 @@ class EmailHandler implements HandlerInterface
     }
 
     /**
-     * @param Project $project
-     * @param array   $data
-     * @param array   $configuration
+     * @param Hit   $hit
+     * @param array $configuration
      */
-    public function handle(Project $project, array $data, array $configuration): void
+    public function handle(Hit $hit, array $configuration): void
     {
+        $project = $hit->getProject();
         $user = $project->getUser();
+        $data = $hit->getPayload();
         $subject = $configuration['subject'] ?? self::DEFAULT_SUBJECT;
 
         /* @var \Swift_Message $message */
+        /* @noinspection PhpUndefinedMethodInspection */
         $message = \Swift_Message::newInstance()
             ->setTo($user->getEmail())
             ->setFrom($this->fromEmail)

@@ -30,7 +30,8 @@
         <th>Id</th>
         <th>Time</th>
         <th>State</th>
-        <th>Data</th>
+        <th>Target</th>
+        <th>Payload</th>
       </tr>
     </thead>
     <tbody>
@@ -39,7 +40,8 @@
           <td>{{ hit.id }}</td>
           <td>{{ hit.time|date('Y-m-d H:i:s') }}</td>
           <td>{{ hit.state }}</td>
-          <td>{{ hit.data|json_encode }}</td>
+          <td>{{ hit.target }}</td>
+          <td>{{ hit.payload|json_encode }}</td>
         </tr>
       {% endfor %}
     </tbody>

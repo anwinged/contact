@@ -3,7 +3,10 @@
 namespace AppBundle\Document;
 
 use AppBundle\Enum\HitState;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * @MongoDB\Document(repositoryClass="AppBundle\Repository\HitRepository")
@@ -32,11 +35,25 @@ class Hit
     private $timestamp;
 
     /**
+     * @MongoDB\Field(type="string")
+     *
+     * @var string
+     */
+    private $target;
+
+    /**
      * @MongoDB\Field(type="hash")
      *
      * @var array
      */
-    private $data = [];
+    private $payload = [];
+
+    /**
+     * @MongoDB\ReferenceMany(targetDocument="Catcher")
+     *
+     * @var Collection
+     */
+    private $catchers;
 
     /**
      * @MongoDB\Field(type="string")
@@ -44,6 +61,11 @@ class Hit
      * @var string
      */
     private $state;
+
+    public function __construct()
+    {
+        $this->catchers = new ArrayCollection();
+    }
 
     /**
      * @return string
@@ -97,19 +119,59 @@ class Hit
     }
 
     /**
-     * @return array
+     * @return string
      */
-    public function getData(): array
+    public function getTarget(): string
     {
-        return $this->data;
+        return $this->target ?? '';
     }
 
     /**
-     * @param array $data
+     * @param string $target
      */
-    public function setData(array $data)
+    public function setTarget(string $target)
     {
-        $this->data = $data;
+        $this->target = $target;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPayload(): array
+    {
+        return $this->payload ?? [];
+    }
+
+    /**
+     * @param array $payload
+     */
+    public function setPayload(array $payload)
+    {
+        $this->payload = $payload;
+    }
+
+    /**
+     * @param Catcher $catcher
+     */
+    public function addCatcher(Catcher $catcher)
+    {
+        $this->catchers->add($catcher);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCatchers(): Collection
+    {
+        return $this->catchers;
+    }
+
+    /**
+     * @param Collection $catchers
+     */
+    public function setCatchers(Collection $catchers)
+    {
+        $this->catchers = $catchers;
     }
 
     /**
