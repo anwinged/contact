@@ -1,0 +1,11 @@
+---
+- name: Create cache directorie
+  file: path='/tmp/{{ app.name }}/cache' state=directory
+
+- name: Create logs directorie
+  file: path='/tmp/{{ app.name }}/logs' state=directory
+
+- name: Add cd to {{ project_root }} in shell startup file
+  lineinfile:
+    dest: /home/ubuntu/.bashrc
+    line: cd '{{ project_root }}'
