@@ -7,3 +7,12 @@
 
 - src: geerlingguy.mailhog
   version: 2.1.1
+
+# Temporary don't support systemd
+# Used forked version instead
+#
+#- src: tersmitten.supervisor
+#  version: v1.6.1
+- src: https://github.com/czerasz/ansible-supervisor
+  version: feature/add_systemd_support
+  name: tersmitten.supervisor

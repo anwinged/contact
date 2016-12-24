@@ -33,7 +33,7 @@ class HitController extends Controller
             throw new UnsupportedMediaTypeHttpException();
         }
 
-        $hitProcessor = $this->get('app.hit_processor');
+        $hitProcessor = $this->get('app.hit_saver');
         $hitProcessor->process($data, $project);
 
         return new Response();

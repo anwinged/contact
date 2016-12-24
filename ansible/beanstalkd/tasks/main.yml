@@ -1,0 +1,6 @@
+---
+- name: Install beanstalkd
+  apt: name=beanstalkd state=latest update_cache=yes
+
+- name: Stop default service
+  service: name=beanstalkd enabled=no state=stopped

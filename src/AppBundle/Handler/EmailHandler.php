@@ -3,6 +3,7 @@
 namespace AppBundle\Handler;
 
 use AppBundle\Document\Hit;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class EmailHandler implements HandlerInterface
@@ -24,14 +25,21 @@ class EmailHandler implements HandlerInterface
      */
     private $fromEmail;
 
+    /**
+     * @var
+     */
+    private $logger;
+
     public function __construct(
         \Swift_Mailer $mailer,
         \Twig_Environment $twig,
-        string $fromEmail
+        string $fromEmail,
+        LoggerInterface $logger
     ) {
         $this->mailer = $mailer;
         $this->twig = $twig;
         $this->fromEmail = $fromEmail;
+        $this->logger = $logger;
     }
 
     /**
@@ -56,7 +64,12 @@ class EmailHandler implements HandlerInterface
             ->setCharset('utf-8')
         ;
 
-        $this->mailer->send($message);
+        $result = $this->mailer->send($message);
+
+        $this->logger->info(sprintf(
+            'Email sent to %d recipients',
+            $result
+        ));
     }
 
     /**

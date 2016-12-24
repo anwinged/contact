@@ -32,7 +32,8 @@
         "doctrine/mongodb-odm": "^1.1",
         "doctrine/mongodb-odm-bundle": "^3.2",
         "myclabs/php-enum": "^1.5",
-        "nesbot/carbon": "^1.21"
+        "nesbot/carbon": "^1.21",
+        "leezy/pheanstalk-bundle": "~3.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

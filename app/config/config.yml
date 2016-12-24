@@ -77,4 +77,11 @@ swiftmailer:
     port:      "%mailer_port%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
-    spool:     { type: memory }
+
+leezy_pheanstalk:
+    pheanstalks:
+        primary:
+            server: 127.0.0.1
+            port: 11300
+            timeout: 10
+            default: true

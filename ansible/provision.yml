@@ -7,6 +7,11 @@
     project_root: /vagrant
     timezone: UTC
 
+    supervisor_inet_http_server_enabled: true
+    supervisor_programs_present:
+      foo:
+        command: 'beanstalkd'
+
   pre_tasks:
     - name: Install build essential
       apt: package=build-essential state=latest
@@ -18,4 +23,7 @@
     - mongodb
     - geerlingguy.composer
     - geerlingguy.mailhog
+    - pip
+    - beanstalkd
+    - tersmitten.supervisor
     - application

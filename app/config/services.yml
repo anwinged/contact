@@ -18,10 +18,23 @@ services:
     arguments:
       - '@form.factory'
 
+  app.hit_queue:
+    class: AppBundle\Service\HitQueue
+    arguments:
+      - '@leezy.pheanstalk'
+      - '@doctrine.odm.mongodb.document_manager'
+      - '@logger'
+
+  app.hit_saver:
+    class: AppBundle\Service\HitSaver
+    arguments:
+      - '@doctrine.odm.mongodb.document_manager'
+      - '@app.hit_queue'
+      - '@logger'
+
   app.hit_processor:
     class: AppBundle\Service\HitProcessor
     arguments:
-      - '@doctrine.odm.mongodb.document_manager'
       - '@app.handler_manager'
       - '@logger'
 

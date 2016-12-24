@@ -6,5 +6,6 @@ services:
       - '@mailer'
       - '@twig'
       - '%handler_email%'
+      - '@logger'
     tags:
       - { name: app.handler, alias: email_handler }
