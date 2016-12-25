@@ -14,17 +14,9 @@
   become: yes
   notify: restart nginx
 
-- name: Configure virtual hosts
+- name: Configure virtual host
   template:
-    dest: /etc/nginx/sites-available/{{ app.name }}.conf
+    dest: /etc/nginx/sites-enabled/{{ nginx_site }}.conf
     src: site.conf.j2
-  become: yes
-  notify: restart nginx
-
-- name: Create links for sites-enabled
-  file:
-    state: link
-    src: /etc/nginx/sites-available/{{ app.name }}.conf
-    dest: /etc/nginx/sites-enabled/{{ app.name }}.conf
   become: yes
   notify: restart nginx

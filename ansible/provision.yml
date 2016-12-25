@@ -2,15 +2,25 @@
 - hosts: all
 
   vars:
-    app:
-      name: contact
-    project_root: /vagrant
+    application_name: contact
+    application_root: /vagrant
+    application_env: vagrant
+    application_user: ubuntu
+
     timezone: UTC
+
+    nginx_site: '{{ application_name }}'
+    nginx_site_root: '{{ application_root }}'
 
     supervisor_inet_http_server_enabled: true
     supervisor_programs_present:
-      foo:
+      beanstalk:
         command: 'beanstalkd'
+      hit_processor:
+        command: '{{ application_root }}/bin/console app:hit:process'
+        autostart: false
+        directory: '{{ application_root }}'
+        environment: 'SYMFONY_ENV="{{ application_env }}"'
 
   pre_tasks:
     - name: Install build essential

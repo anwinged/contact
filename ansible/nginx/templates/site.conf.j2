@@ -2,7 +2,7 @@ server {
 
     listen 80;
 
-    root {{ project_root }}/web;
+    root {{ nginx_site_root }}/web;
 
     location / {
         # try to serve file directly, fallback to app.php
@@ -31,8 +31,8 @@ server {
         return 404;
     }
 
-    error_log /var/log/nginx/{{ app.name }}_error.log;
-    access_log /var/log/nginx/{{ app.name }}_access.log;
+    error_log /var/log/nginx/{{ nginx_site }}_error.log;
+    access_log /var/log/nginx/{{ nginx_site }}_access.log;
 
     sendfile off;
 }
